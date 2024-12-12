@@ -1,9 +1,9 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neona</title>
+    <title>Discord Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,150 +17,42 @@
             padding: 10px 0;
             text-align: center;
         }
-        nav {
-            margin: 15px;
-        }
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #333;
-        }
         main {
             padding: 20px;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-        .menu-container {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-        }
-        .menu-button {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .menu-content {
-            display: none;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: absolute;
-            top: 40px;
-            left: 0;
-            width: 200px;
-            z-index: 1000;
-        }
-        .menu-content a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-        }
-        .menu-content a:hover {
-            background-color: #f4f4f4;
-        }
-        .profile-info {
-            display: none;
-            margin-top: 20px;
             text-align: center;
         }
-        .profile-info img {
+        #profileInfo {
+            display: none;
+        }
+        img#profilePic {
             border-radius: 50%;
             width: 100px;
             height: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Neona</h1>
+        <h1>Discord OAuth2 Login</h1>
     </header>
 
-    <div class="menu-container">
-        <button class="menu-button" onclick="toggleMenu()">Menu</button>
-        <div class="menu-content">
-            <a href="#" onclick="loginWithDiscord()">Log in with Discord</a>
-            <a href="#" id="profile-link" style="display: none;">Profile</a>
-            <a href="#" id="logout-link" style="display: none;" onclick="logout()">Log out</a>
-        </div>
-    </div>
-
     <main>
-        <h2>About Us</h2>
-        <p>This is a simple webpage created with HTML and a little bit of CSS for styling. You can modify the content and style as needed.</p>
-        <div class="profile-info" id="profile-info">
-            <img id="profile-pic" src="" alt="Profile Picture">
-            <h3 id="username"></h3>
+        <div id="loginSection">
+            <button id="loginBtn" onclick="loginWithDiscord()">Log in with Discord</button>
+        </div>
+        <div id="profileInfo">
+            <img id="profilePic" alt="Profile Picture">
+            <p id="username"></p>
+            <a id="profileLink" href="#" target="_blank">View Profile</a>
+            <a id="logoutLink" href="#" onclick="logout()">Logout</a>
         </div>
     </main>
 
-    <footer>
-        <p>© 2024 Neona Website</p>
-    </footer>
-
-    <script>
-        const menuContent = document.querySelector('.menu-content');
-        const profileInfo = document.getElementById('profile-info');
-        const profileLink = document.getElementById('profile-link');
-        const logoutLink = document.getElementById('logout-link');
-        const profilePic = document.getElementById('profile-pic');
-        const username = document.getElementById('username');
-
-        function toggleMenu() {
-            menuContent.style.display = menuContent.style.display === 'block' ? 'none' : 'block';
-        }
-
-        async function loginWithDiscord() {
-            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=1285640377247862877&redirect_uri=https://neona-bot.vercel.app/&response_type=token&scope=identify`;
-            window.location.href = authUrl;
-        }
-
-        function logout() {
-            localStorage.removeItem('discordToken');
-            profileInfo.style.display = 'none';
-            profileLink.style.display = 'none';
-            logoutLink.style.display = 'none';
-        }
-
-        async function fetchDiscordProfile(token) {
-            const response = await fetch('https://discord.com/api/users/@me', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await response.json();
-            profilePic.src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`;
-            username.textContent = data.username;
-            profileInfo.style.display = 'block';
-            profileLink.style.display = 'block';
-            logoutLink.style.display = 'block';
-        }
-
-        window.onload = () => {
-            const token = localStorage.getItem('discordToken');
-            if (token) {
-                fetchDiscordProfile(token);
-            }
-        };
-
-        window.addEventListener('hashchange', () => {
-            const hash = window.location.hash.substring(1);
-            const params = new URLSearchParams(hash);
-            const token = params.get('access_token');
-            if (token) {
-                localStorage.setItem('discordToken', token);
-                fetchDiscordProfile(token);
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
