@@ -1,93 +1,44 @@
+html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Login</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e0e7ff;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        header {
-            background-color: #5865f2;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
-        main {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 20px;
-            text-align: center;
-        }
-        #profileInfo {
-            display: none;
-        }
-        img#profilePic {
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            border: 3px solid #5865f2;
-            margin-bottom: 15px;
-        }
-        button {
-            background-color: #5865f2;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: background-color 0.3s, transform 0.3s;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #4854c7;
-            transform: translateY(-3px);
-        }
-        button:active {
-            transform: translateY(1px);
-        }
-        a {
-            display: block;
-            margin-top: 10px;
-            color: #5865f2;
-            font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #4854c7;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <title>Button Animation</title>
 </head>
 <body>
-    <header>
-        <h1>Discord Login</h1>
-    </header>
-
-    <main>
-        <div id="loginSection">
-            <button id="loginBtn" onclick="loginWithDiscord()">Log in with Discord</button>
-        </div>
-        <div id="profileInfo">
-            <img id="profilePic" alt="Profile Picture">
-            <p id="username"></p>
-            <a id="profileLink" href="#" target="_blank">View Profile</a>
-            <a id="logoutLink" href="#" onclick="logout()">Logout</a>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
+    <button class="animate-button">Click Me</button>
 </body>
 </html>
+```
+
+### CSS (styles.css)
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.animate-button {
+    background-color: #7289da;
+    color: white;
+    padding: 15px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.animate-button:hover {
+    background-color: #5a6fb0;
+    transform: translateY(-5px);
+}
+
+.animate-button:active {
+    transform: translateY(2px);
+}
