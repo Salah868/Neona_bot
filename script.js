@@ -32,3 +32,5 @@ const getProfileData = async () => {
         }
     }
 };
+
+getProfileData();
