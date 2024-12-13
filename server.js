@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Replace with your custom MongoDB connection string (token)
-const mongoURI = 'mongodb+srv://salahAmber1:salahAmber1@cluster0.qq5ttgn.mongodb.net/';
+const mongoURI = 'mongodb+srv://neona:neonaweb1@cluster0.mfpbh.mongodb.net/';
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
