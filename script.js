@@ -19,7 +19,7 @@ function logout() {
     localStorage.removeItem('discordId');
     location.reload();
 }
-  .then((response) => response.json())
+.then((response) => response.json())
             .then((data) => {
                 if (data.success) {
                     const { discordId, username, avatar } = data.user;
@@ -42,7 +42,6 @@ function logout() {
         }
     }
 };
-
 window.onload = () => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
