@@ -10,9 +10,9 @@
             margin: 0;
             padding: 0;
             background-color: #e0e7ff;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
         }
 
         /* Header */
@@ -20,51 +20,33 @@
             background-color: #5865f2;
             color: white;
             padding: 15px;
-            position: relative;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        header h1 {
-            margin: 0 auto;
-        }
-
-        /* Menu button */
         .menu-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: white;
+            background-color: transparent;
             border: none;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .menu-btn:hover {
-            transform: scale(1.1);
         }
 
         .menu-btn img {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
 
-        /* Dropdown menu */
         .dropdown {
             position: absolute;
-            top: 55px;
-            left: 15px;
+            top: 60px;
+            left: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
             display: none;
             flex-direction: column;
             width: 200px;
-            z-index: 10;
         }
 
         .dropdown.active {
@@ -87,58 +69,41 @@
             background-color: #f0f0f0;
         }
 
-        /* Main section */
         main {
-            flex-grow: 1;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            padding: 20px;
+        }
+
+        #profileSection {
+            display: none;
             text-align: center;
         }
 
-        #profileInfo {
-            display: none;
-        }
-
-        img#profilePic {
+        #profilePic {
             border-radius: 50%;
             width: 120px;
             height: 120px;
-            border: 3px solid #5865f2;
             margin-bottom: 15px;
         }
 
-        button {
-            background-color: #5865f2;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, transform 0.3s;
-            cursor: pointer;
-            margin-top: 20px;
+        #bio {
+            font-style: italic;
         }
 
-        button:hover {
-            background-color: #4854c7;
-            transform: translateY(-3px);
-        }
-
-        button:active {
-            transform: translateY(1px);
+        #loginMessage {
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <header>
-        <button class="menu-btn" id="menuBtn">
-            <img id="menuIcon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Menu">
-        </button>
         <h1>Discord Login</h1>
+        <button class="menu-btn" id="menuBtn">
+            <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Menu">
+        </button>
         <div class="dropdown" id="dropdownMenu">
             <a id="loginOption" href="#" onclick="loginWithDiscord()">Log in</a>
             <a id="profileOption" href="#" style="display: none;">Profile</a>
@@ -147,17 +112,76 @@
     </header>
 
     <main>
-        <div id="loginSection">
-            <button id="loginBtn" onclick="loginWithDiscord()">Log in with Discord</button>
-        </div>
-        <div id="profileInfo">
+        <div id="profileSection">
             <img id="profilePic" alt="Profile Picture">
             <p id="username"></p>
-            <a id="profileLink" href="#" target="_blank">View Profile</a>
-            <a id="logoutLink" href="#" onclick="logout()">Logout</a>
+            <p id="bio">Bio: <span id="userBio"></span></p>
         </div>
+
+        <p id="loginMessage">Please log in to view your profile.</p>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const profileOption = document.getElementById('profileOption');
+        const logoutOption = document.getElementById('logoutOption');
+        const loginOption = document.getElementById('loginOption');
+        const profileSection = document.getElementById('profileSection');
+        const profilePic = document.getElementById('profilePic');
+        const usernameElem = document.getElementById('username');
+        const userBio = document.getElementById('userBio');
+        const loginMessage = document.getElementById('loginMessage');
+        const userAvatar = document.getElementById('userAvatar');
+
+        // Toggle dropdown menu
+        menuBtn.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Update UI after login
+        function updateUI(user) {
+            userAvatar.src = `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`;
+            profilePic.src = `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`;
+            usernameElem.textContent = `Username: ${user.username}`;
+            userBio.textContent = user.bio || "No bio available.";
+            profileSection.style.display = "block";
+            profileOption.style.display = "block";
+            logoutOption.style.display = "block";
+            loginOption.style.display = "none";
+            loginMessage.style.display = "none";
+        }
+
+        // Login function
+        function loginWithDiscord() {
+            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=1285640377247862877&redirect_uri=https://neona-bot.vercel.app&response_type=code&scope=identify`;
+            window.location.href = authUrl;
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('discordId');
+            profileSection.style.display = "none";
+            profileOption.style.display = "none";
+            logoutOption.style.display = "none";
+            loginOption.style.display = "block";
+            loginMessage.style.display = "block";
+            userAvatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
+        }
+
+        // Check login on page load
+        window.onload = () => {
+            const discordId = localStorage.getItem('discordId');
+            if (discordId) {
+                fetch(`https://neona-bot.vercel.app/api/profile/${discordId}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            updateUI(data.user);
+                        }
+                    });
+            }
+        };
+    </script>
 </body>
 </html>
