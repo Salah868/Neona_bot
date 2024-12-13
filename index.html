@@ -19,38 +19,6 @@
             color: white;
             padding: 15px 0;
             text-align: center;
-            position: relative;
-        }
-        #menuButton {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: #4854c7;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        #menu {
-            display: none;
-            position: absolute;
-            left: 15px;
-            top: 50px;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        #menu a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-        }
-        #menu a:hover {
-            background-color: #f0f0f0;
         }
         main {
             flex-grow: 1;
@@ -90,49 +58,8 @@
         button:active {
             transform: translateY(1px);
         }
-    </style>
-</head>
-<body>
-
-<header>
-    <button id="menuButton">☰</button>
-    <h1>Discord Login</h1>
-    <div id="menu">
-        <a href="#profile" id="profileLink">Profile</a>
-        <a href="#logout">Log Out</a>
-    </div>
-</header>
-
-<main>
-    <div id="profileInfo">
-        <img id="profilePic" src="" alt="Profile Picture">
-        <h2 id="username"></h2>
-        <button onclick="logout()">Log Out</button>
-    </div>
-</main>
-
-<script>
-    const menuButton = document.getElementById('menuButton');
-    const menu = document.getElementById('menu');
-    const profileInfo = document.getElementById('profileInfo');
-
-    menuButton.addEventListener('click', () => {
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    document.getElementById('profileLink').addEventListener('click', () => {
-        menu.style.display = 'none';
-        profileInfo.style.display = 'block';
-        // Mock data - use Discord API to get real data
-        document.getElementById('profilePic').src = 'discord-user-profile-picture-url';
-        document.getElementById('username').textContent = 'DiscordUsername';
-    });
-
-    function logout() {
-        // Add logout functionality here
-        alert('Logged out!');
-    }
-</script>
-
-</body>
-</html>
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #5865f2;
+            font-weight: bold;
