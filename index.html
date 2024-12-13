@@ -63,3 +63,31 @@
             margin-top: 10px;
             color: #5865f2;
             font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #4854c7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Discord Login</h1>
+    </header>
+
+    <main>
+        <div id="loginSection">
+            <button id="loginBtn" onclick="loginWithDiscord()">Log in with Discord</button>
+        </div>
+        <div id="profileInfo">
+            <img id="profilePic" alt="Profile Picture">
+            <p id="username"></p>
+            <a id="profileLink" href="#" target="_blank">View Profile</a>
+            <a id="logoutLink" href="#" onclick="logout()">Logout</a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
