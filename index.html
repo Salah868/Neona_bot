@@ -1,72 +1,35 @@
-`html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Profile Menu</title>
 </head>
 <body>
-    <header>
-        <button id="menuButton" class="menu-button">☰</button>
-        <h1>Discord Login</h1>
-    </header>
-    <nav id="sideMenu" class="side-menu">
-        <ul>
-            <li id="profileLink">Profile</li>
-            <li id="logoutLink">Logout</li>
-        </ul>
-    </nav>
-    <main>
-        <section id="loginSection">
-            <button onclick="loginWithDiscord()">Log in with Discord</button>
-        </section>
-        <section id="profileSection" class="hidden">
-            <img id="userIcon" src="" alt="User Icon">
-            <p id="username"></p>
-        </section>
-    </main>
+    <div class="menu-container">
+        <button id="menu-button">☰</button>
+        <div id="menu" class="hidden">
+            <div class="profile">
+                <img id="avatar" src="" alt="User Avatar">
+                <span id="username">Username</span>
+            </div>
+            <button id="logout-button">Logout</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
 ```
 
-### CSS (style.css)
-
+### CSS (styles.css)
 ```css
-body {
-    font-family: Arial, sans-serif;
+.menu-container {
+    position: relative;
 }
 
-header {
-    display: flex;
-    align-items: center;
-}
-
-.menu-button {
+#menu-button {
     font-size: 24px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.side-menu {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: #333;
-    padding: 10px;
-}
-
-.side-menu ul {
-    list-style: none;
-    padding: 0;
-}
-
-.side-menu li {
-    padding: 10px;
-    color: #fff;
     cursor: pointer;
 }
 
@@ -74,8 +37,23 @@ header {
     display: none;
 }
 
-#profileSection img {
-    width: 50px;
-    height: 50px;
+#menu {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+#avatar {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    margin-right: 10px;
 }
