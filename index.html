@@ -14,12 +14,80 @@
             flex-direction: column;
             height: 100vh;
         }
+
+        /* Header */
         header {
             background-color: #5865f2;
             color: white;
-            padding: 15px 0;
-            text-align: center;
+            padding: 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
         }
+
+        header h1 {
+            margin: 0 auto;
+        }
+
+        /* Menu button */
+        .menu-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-btn img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Dropdown menu */
+        .dropdown {
+            position: absolute;
+            top: 55px;
+            left: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            width: 200px;
+            z-index: 10;
+        }
+
+        .dropdown.active {
+            display: flex;
+        }
+
+        .dropdown a {
+            padding: 15px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Main section */
         main {
             flex-grow: 1;
             display: flex;
@@ -29,9 +97,11 @@
             padding: 20px;
             text-align: center;
         }
+
         #profileInfo {
             display: none;
         }
+
         img#profilePic {
             border-radius: 50%;
             width: 120px;
@@ -39,6 +109,7 @@
             border: 3px solid #5865f2;
             margin-bottom: 15px;
         }
+
         button {
             background-color: #5865f2;
             color: white;
@@ -46,34 +117,33 @@
             padding: 12px 25px;
             font-size: 18px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s, transform 0.3s;
             cursor: pointer;
             margin-top: 20px;
         }
+
         button:hover {
             background-color: #4854c7;
             transform: translateY(-3px);
         }
+
         button:active {
             transform: translateY(1px);
-        }
-        a {
-            display: block;
-            margin-top: 10px;
-            color: #5865f2;
-            font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #4854c7;
         }
     </style>
 </head>
 <body>
     <header>
+        <button class="menu-btn" id="menuBtn">
+            <img id="menuIcon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Menu">
+        </button>
         <h1>Discord Login</h1>
+        <div class="dropdown" id="dropdownMenu">
+            <a id="loginOption" href="#" onclick="loginWithDiscord()">Log in</a>
+            <a id="profileOption" href="#" style="display: none;">Profile</a>
+            <a id="logoutOption" href="#" style="display: none;" onclick="logout()">Logout</a>
+        </div>
     </header>
 
     <main>
