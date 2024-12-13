@@ -3,185 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Login</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e0e7ff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header */
-        header {
-            background-color: #5865f2;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .menu-btn {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .menu-btn img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .dropdown {
-            position: absolute;
-            top: 60px;
-            left: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: none;
-            flex-direction: column;
-            width: 200px;
-        }
-
-        .dropdown.active {
-            display: flex;
-        }
-
-        .dropdown a {
-            padding: 15px;
-            text-decoration: none;
-            color: #333;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.3s;
-        }
-
-        .dropdown a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown a:hover {
-            background-color: #f0f0f0;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        #profileSection {
-            display: none;
-            text-align: center;
-        }
-
-        #profilePic {
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            margin-bottom: 15px;
-        }
-
-        #bio {
-            font-style: italic;
-        }
-
-        #loginMessage {
-            text-align: center;
-        }
-    </style>
+    <title>Discord Bot Web</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Discord Login</h1>
-        <button class="menu-btn" id="menuBtn">
-            <img id="userAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Menu">
-        </button>
-        <div class="dropdown" id="dropdownMenu">
-            <a id="loginOption" href="#" onclick="loginWithDiscord()">Log in</a>
-            <a id="profileOption" href="#" style="display: none;">Profile</a>
-            <a id="logoutOption" href="#" style="display: none;" onclick="logout()">Logout</a>
-        </div>
+        <h1>My Discord Bot</h1>
     </header>
-
     <main>
-        <div id="profileSection">
-            <img id="profilePic" alt="Profile Picture">
-            <p id="username"></p>
-            <p id="bio">Bio: <span id="userBio"></span></p>
-        </div>
-
-        <p id="loginMessage">Please log in to view your profile.</p>
+        <section id="bot-details">
+            <h2>Bot Details</h2>
+            <p>Created on: <span id="creation-date">2024-01-01</span></p>
+            <p>Servers: <span id="server-count">123</span></p>
+        </section>
+        <footer>
+            <button id="message-button" onclick="window.location.href='https://example.com';">
+                Click here for more!
+            </button>
+        </footer>
     </main>
-
-    <script>
-        const menuBtn = document.getElementById('menuBtn');
-        const dropdownMenu = document.getElementById('dropdownMenu');
-        const profileOption = document.getElementById('profileOption');
-        const logoutOption = document.getElementById('logoutOption');
-        const loginOption = document.getElementById('loginOption');
-        const profileSection = document.getElementById('profileSection');
-        const profilePic = document.getElementById('profilePic');
-        const usernameElem = document.getElementById('username');
-        const userBio = document.getElementById('userBio');
-        const loginMessage = document.getElementById('loginMessage');
-        const userAvatar = document.getElementById('userAvatar');
-
-        // Toggle dropdown menu
-        menuBtn.addEventListener('click', () => {
-            dropdownMenu.classList.toggle('active');
-        });
-
-        // Update UI after login
-        function updateUI(user) {
-            userAvatar.src = `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`;
-            profilePic.src = `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`;
-            usernameElem.textContent = `Username: ${user.username}`;
-            userBio.textContent = user.bio || "No bio available.";
-            profileSection.style.display = "block";
-            profileOption.style.display = "block";
-            logoutOption.style.display = "block";
-            loginOption.style.display = "none";
-            loginMessage.style.display = "none";
-        }
-
-        // Login function
-        function loginWithDiscord() {
-            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=1285640377247862877&redirect_uri=https://neona-bot.vercel.app&response_type=code&scope=identify`;
-            window.location.href = authUrl;
-        }
-
-        // Logout function
-        function logout() {
-            localStorage.removeItem('discordId');
-            profileSection.style.display = "none";
-            profileOption.style.display = "none";
-            logoutOption.style.display = "none";
-            loginOption.style.display = "block";
-            loginMessage.style.display = "block";
-            userAvatar.src = "https://cdn.discordapp.com/embed/avatars/0.png";
-        }
-
-        // Check login on page load
-        window.onload = () => {
-            const discordId = localStorage.getItem('discordId');
-            if (discordId) {
-                fetch(`https://neona-bot.vercel.app/api/profile/${discordId}`)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.success) {
-                            updateUI(data.user);
-                        }
-                    });
-            }
-        };
-    </script>
 </body>
 </html>
